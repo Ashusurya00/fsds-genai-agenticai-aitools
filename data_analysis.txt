@@ -1,0 +1,125 @@
+# %%
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# %%
+df = pd.read_csv(r'C:\Users\aashutosh\OneDrive\Desktop\codeprac\football_matches.csv')
+
+# %%
+df
+
+# %%
+df.shape
+
+# %%
+pd.DataFrame(df)
+
+# %%
+df.isnull().sum()
+
+# %%
+df.isnull()
+
+# %%
+df
+
+# %%
+df.shape
+
+# %%
+data_array = df.to_numpy()
+data_array
+
+# %%
+df
+
+# %%
+df.head(10)
+df.tail(10)
+df.describe()
+df.info()
+
+# %%
+df.head(10)
+
+# %%
+df.tail()
+
+# %%
+df.describe()
+
+# %%
+df.info()
+
+# %%
+df.columns
+
+# %%
+df['Home_Team_Yellowcard'].mean()
+
+
+# %%
+df[['Home_Team_Yellowcard','Away_Team_Yellowcard']].corr()
+
+# %%
+df.groupby('Home_Team').mean()
+
+# %%
+data = df.to_numpy()
+
+# %%
+data
+
+# %%
+np.ndim(data)
+
+# %%
+plt.plot(df['Home_Team_Score'])
+
+# %%
+plt.plot(df['Home_Team_Score'])
+plt.title('football analysis')
+plt.show()
+
+# %%
+plt.hist(df['Home_Team_Fouls'], bins=10,color='blue')
+plt.title('histogram of hometeam fouls')
+plt.show()
+
+# %%
+plt.scatter(df['Home_Team_ShotsonTarget'],df['Away_Team_ShotsonTarget'])
+plt.xlabel('Home_Team_ShotsonTarget')
+plt.ylabel('Away_Team_ShotsonTarget')
+plt.show()
+
+# %%
+plt.bar(df['Home_Team_ShotsonTarget'], color='pink',height=0.3)
+
+# %%
+plt.pie(df['Away_Team_ShotsonTarget'],autopct="%1.1f%%")
+plt.show()
+
+# %%
+plt.figure(figsize=(10,6))
+sns.heatmap(df[['Home_Team_Corner',  'Away_Team_Corner']],annot=True,cmap='coolwarm')
+plt.show()
+
+# %%
+sns.boxplot(x=df['Away_Team_Possession'])
+plt.show()
+
+# %%
+
+
+# %%
+
+
+# %%
+
+
+# %%
+
+
+
