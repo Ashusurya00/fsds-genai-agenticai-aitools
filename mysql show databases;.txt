@@ -1,0 +1,621 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| cst                |
+| emp                |
+| information_schema |
+| mydb               |
+| mysql              |
+| nit                |
+| performance_schema |
+| sys                |
++--------------------+
+8 rows in set (0.00 sec)
+
+mysql> use nit
+Database changed
+mysql> select 10 + 20;
++---------+
+| 10 + 20 |
++---------+
+|      30 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select 10 * 20;
++---------+
+| 10 * 20 |
++---------+
+|     200 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select 10 / 5;
++--------+
+| 10 / 5 |
++--------+
+| 2.0000 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select 12 % 5;
++--------+
+| 12 % 5 |
++--------+
+|      2 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> use nit
+Database changed
+mysql> INSERT INTO customers (id, name, age, address, salary) VALUES
+    -> (1, 'Ramesh', 32, 'Ahmedabad', 2000.00),
+    -> (2, 'Khilan', 25, 'Delhi', 1500.00),
+    -> (3, 'Kaushik', 23, 'Kota', 2000.00),
+    -> (4, 'Chaitali', 25, 'Mumbai', 6500.00),
+    -> (5, 'Hardik', 27, 'Bhopal', 8500.00),
+    -> (6, 'Komal', 22, 'MP', 4500.00),
+    -> (7, 'Muffy', 24, 'Indore', 10000.00);
+ERROR 1146 (42S02): Table 'nit.customers' doesn't exist
+mysql> create table customers;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> CREATE TABLE customers (
+    ->     id INT PRIMARY KEY,
+    ->     name VARCHAR(50),
+    ->     age INT,
+    ->     address VARCHAR(100),
+    ->     salary DECIMAL(10,2)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into customers (id, name, age, address, salary) values
+    -> (1, 'ramesh', 32, 'ahmedabad', 2000.00),
+    -> (2, 'khilan', 24, 'delhi', 1500.00),
+    -> (3, 'kaushik',23, 'kota',2000.00),
+    -> (4, 'chaitali', 25, 'mumbai', 6500.00),
+    -> (5, 'hardik', 27, 'bhopal', 5600.00),
+    -> (6, 'komal' , 24, 'MP', 10000.00),
+    -> (7, 'muffy', 25, 'indore', 4500.00);
+Query OK, 7 rows affected (0.01 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> select * from select customers
+    -> sgf;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select customers
+sgf' at line 1
+mysql> select * from select customers;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select customers' at line 1
+mysql> select * from  customers;
++----+----------+------+-----------+----------+
+| id | name     | age  | address   | salary   |
++----+----------+------+-----------+----------+
+|  1 | ramesh   |   32 | ahmedabad |  2000.00 |
+|  2 | khilan   |   24 | delhi     |  1500.00 |
+|  3 | kaushik  |   23 | kota      |  2000.00 |
+|  4 | chaitali |   25 | mumbai    |  6500.00 |
+|  5 | hardik   |   27 | bhopal    |  5600.00 |
+|  6 | komal    |   24 | MP        | 10000.00 |
+|  7 | muffy    |   25 | indore    |  4500.00 |
++----+----------+------+-----------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select * from customers where salary >= 6500;
++----+----------+------+---------+----------+
+| id | name     | age  | address | salary   |
++----+----------+------+---------+----------+
+|  4 | chaitali |   25 | mumbai  |  6500.00 |
+|  6 | komal    |   24 | MP      | 10000.00 |
++----+----------+------+---------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select * from customers;
++----+----------+------+-----------+----------+
+| id | name     | age  | address   | salary   |
++----+----------+------+-----------+----------+
+|  1 | ramesh   |   32 | ahmedabad |  2000.00 |
+|  2 | khilan   |   24 | delhi     |  1500.00 |
+|  3 | kaushik  |   23 | kota      |  2000.00 |
+|  4 | chaitali |   25 | mumbai    |  6500.00 |
+|  5 | hardik   |   27 | bhopal    |  5600.00 |
+|  6 | komal    |   24 | MP        | 10000.00 |
+|  7 | muffy    |   25 | indore    |  4500.00 |
++----+----------+------+-----------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select * from customers where age >= 25 and salary >= 6500;
++----+----------+------+---------+---------+
+| id | name     | age  | address | salary  |
++----+----------+------+---------+---------+
+|  4 | chaitali |   25 | mumbai  | 6500.00 |
++----+----------+------+---------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from customers where age >= 25 or salary >= 6500;
++----+----------+------+-----------+----------+
+| id | name     | age  | address   | salary   |
++----+----------+------+-----------+----------+
+|  1 | ramesh   |   32 | ahmedabad |  2000.00 |
+|  4 | chaitali |   25 | mumbai    |  6500.00 |
+|  5 | hardik   |   27 | bhopal    |  5600.00 |
+|  6 | komal    |   24 | MP        | 10000.00 |
+|  7 | muffy    |   25 | indore    |  4500.00 |
++----+----------+------+-----------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customers wher age is not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'age is not null' at line 1
+mysql> select * from customers where age is not null;
++----+----------+------+-----------+----------+
+| id | name     | age  | address   | salary   |
++----+----------+------+-----------+----------+
+|  1 | ramesh   |   32 | ahmedabad |  2000.00 |
+|  2 | khilan   |   24 | delhi     |  1500.00 |
+|  3 | kaushik  |   23 | kota      |  2000.00 |
+|  4 | chaitali |   25 | mumbai    |  6500.00 |
+|  5 | hardik   |   27 | bhopal    |  5600.00 |
+|  6 | komal    |   24 | MP        | 10000.00 |
+|  7 | muffy    |   25 | indore    |  4500.00 |
++----+----------+------+-----------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select * from customers where name like '%ko';
+Empty set (0.00 sec)
+
+mysql> select * from customers where name like 'ko%';
++----+-------+------+---------+----------+
+| id | name  | age  | address | salary   |
++----+-------+------+---------+----------+
+|  6 | komal |   24 | MP      | 10000.00 |
++----+-------+------+---------+----------+
+1 row in set (0.00 sec)
+
+mysql> select * from customers where age in (25, 27);
++----+----------+------+---------+---------+
+| id | name     | age  | address | salary  |
++----+----------+------+---------+---------+
+|  4 | chaitali |   25 | mumbai  | 6500.00 |
+|  5 | hardik   |   27 | bhopal  | 5600.00 |
+|  7 | muffy    |   25 | indore  | 4500.00 |
++----+----------+------+---------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customers where age between 25 and 27;
++----+----------+------+---------+---------+
+| id | name     | age  | address | salary  |
++----+----------+------+---------+---------+
+|  4 | chaitali |   25 | mumbai  | 6500.00 |
+|  5 | hardik   |   27 | bhopal  | 5600.00 |
+|  7 | muffy    |   25 | indore  | 4500.00 |
++----+----------+------+---------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select age from customers
+    -> where exists (select age from customers where salary > 6500);
++------+
+| age  |
++------+
+|   32 |
+|   24 |
+|   23 |
+|   25 |
+|   27 |
+|   24 |
+|   25 |
++------+
+7 rows in set (0.00 sec)
+
+mysql> select * from customers
+    -> where age > all ( select age from customers where salary > 6500);
++----+----------+------+-----------+---------+
+| id | name     | age  | address   | salary  |
++----+----------+------+-----------+---------+
+|  1 | ramesh   |   32 | ahmedabad | 2000.00 |
+|  4 | chaitali |   25 | mumbai    | 6500.00 |
+|  5 | hardik   |   27 | bhopal    | 5600.00 |
+|  7 | muffy    |   25 | indore    | 4500.00 |
++----+----------+------+-----------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select * from customers
+    -> where age > any (select age from customers where salary > 6500);
++----+----------+------+-----------+---------+
+| id | name     | age  | address   | salary  |
++----+----------+------+-----------+---------+
+|  1 | ramesh   |   32 | ahmedabad | 2000.00 |
+|  4 | chaitali |   25 | mumbai    | 6500.00 |
+|  5 | hardik   |   27 | bhopal    | 5600.00 |
+|  7 | muffy    |   25 | indore    | 4500.00 |
++----+----------+------+-----------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select * from customers where salary = 10000;
++----+-------+------+---------+----------+
+| id | name  | age  | address | salary   |
++----+-------+------+---------+----------+
+|  6 | komal |   24 | MP      | 10000.00 |
++----+-------+------+---------+----------+
+1 row in set (0.00 sec)
+
+mysql> select (15 + 6 ) as addition
+    -> ;
++----------+
+| addition |
++----------+
+|       21 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select (15 + 6 ) as addition;
++----------+
+| addition |
++----------+
+|       21 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select name, age, salary
+    -> from customers
+    -> where [age >=  24];
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '[age >=  24]' at line 3
+mysql> select name, age, salary
+    -> from customers
+    -> where age >= 24;
++----------+------+----------+
+| name     | age  | salary   |
++----------+------+----------+
+| ramesh   |   32 |  2000.00 |
+| khilan   |   24 |  1500.00 |
+| chaitali |   25 |  6500.00 |
+| hardik   |   27 |  5600.00 |
+| komal    |   24 | 10000.00 |
+| muffy    |   25 |  4500.00 |
++----------+------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select name, age, address
+    -> from customers
+    -> where salary = 4500;
++-------+------+---------+
+| name  | age  | address |
++-------+------+---------+
+| muffy |   25 | indore  |
++-------+------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from customers where salary = 1000;
+Empty set (0.00 sec)
+
+mysql> select * from customers where salary = 2000;
++----+---------+------+-----------+---------+
+| id | name    | age  | address   | salary  |
++----+---------+------+-----------+---------+
+|  1 | ramesh  |   32 | ahmedabad | 2000.00 |
+|  3 | kaushik |   23 | kota      | 2000.00 |
++----+---------+------+-----------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select ( 15 + 6) as addition;
++----------+
+| addition |
++----------+
+|       21 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) as 'records' from customers;
++---------+
+| records |
++---------+
+|       7 |
++---------+
+1 row in set (0.01 sec)
+
+mysql> select avg(*) as 'avgsal' from customers;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*) as 'avgsal' from customers' at line 1
+mysql> select avg (*) from customer column age ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*) from customer column age' at line 1
+mysql> SELECT AVG(age) FROM customer;
+ERROR 1146 (42S02): Table 'nit.customer' doesn't exist
+mysql> SELECT AVG(age) FROM customers;
++----------+
+| AVG(age) |
++----------+
+|  25.7143 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select sum(age)from customers;
++----------+
+| sum(age) |
++----------+
+|      180 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select current-timestamp;
+ERROR 1054 (42S22): Unknown column 'current' in 'field list'
+mysql> select current_timestamp;
++---------------------+
+| current_timestamp   |
++---------------------+
+| 2025-09-08 23:45:55 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select getdate();
+ERROR 1305 (42000): FUNCTION nit.getdate does not exist
+mysql> select getdate();;
+ERROR 1305 (42000): FUNCTION nit.getdate does not exist
+ERROR:
+No query specified
+
+mysql> SELECT GETDATE();;
+ERROR 1305 (42000): FUNCTION nit.GETDATE does not exist
+ERROR:
+No query specified
+
+mysql> SELECT GETDATE();
+ERROR 1305 (42000): FUNCTION nit.GETDATE does not exist
+mysql> create database testdb;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| cst                |
+| emp                |
+| information_schema |
+| mydb               |
+| mysql              |
+| nit                |
+| performance_schema |
+| sys                |
+| testdb             |
++--------------------+
+9 rows in set (0.00 sec)
+
+mysql> use testdb;
+Database changed
+mysql> create table salary as select id, salary from customers;
+ERROR 1146 (42S02): Table 'testdb.customers' doesn't exist
+mysql> use nit;
+Database changed
+mysql> create table salary as
+    -> select id ,
+    -> salary from customers;
+Query OK, 7 rows affected (0.02 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> select * from salary ;
++----+----------+
+| id | salary   |
++----+----------+
+|  1 |  2000.00 |
+|  2 |  1500.00 |
+|  3 |  2000.00 |
+|  4 |  6500.00 |
+|  5 |  5600.00 |
+|  6 | 10000.00 |
+|  7 |  4500.00 |
++----+----------+
+7 rows in set (0.00 sec)
+
+mysql> create table customer1 (
+    -> id int not null,
+    -> name varchar(20).
+    -> age int ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.
+age int' at line 3
+mysql> create table customer1(
+    -> id int not null,
+    -> name varchar(30) not null,
+    -> age int not null,
+    -> address char(25),
+    -> salary decimal (18, 2),
+    -> primary key(id)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc customer1;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| id      | int           | NO   | PRI | NULL    |       |
+| name    | varchar(30)   | NO   |     | NULL    |       |
+| age     | int           | NO   |     | NULL    |       |
+| address | char(25)      | YES  |     | NULL    |       |
+| salary  | decimal(18,2) | YES  |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> drop table customer1;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc customer1;
+ERROR 1146 (42S02): Table 'nit.customer1' doesn't exist
+mysql> insert into customer1 (id,name,age,address,salary)
+    -> values(1,'ramesh',32,'ahmedabad',2000.00);
+ERROR 1146 (42S02): Table 'nit.customer1' doesn't exist
+mysql> insert into customer1 (id,name,age,address,salary)
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> create table customer1 (id, name, age, address, salary)
+    -> values (1,'ramesh',32,'ahmedabad',2000.00);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', name, age, address, salary)
+values (1,'ramesh',32,'ahmedabad',2000.00)' at line 1
+mysql> create table customer1 (id, name, age, address, salary);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', name, age, address, salary)' at line 1
+mysql> create table customer1 (id, name, age, address, salary);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', name, age, address, salary)' at line 1
+mysql> CREATE TABLE customer1 (
+    ->     id INT,
+    ->     name VARCHAR(50),
+    ->     age INT,
+    ->     address VARCHAR(100),
+    ->     salary DECIMAL(10,2)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into customers (id, name, age, address, salary)
+    -> values (1,'ramesh',32,'ahmedabad',2000.00);
+ERROR 1062 (23000): Duplicate entry '1' for key 'customers.PRIMARY'
+mysql> insert into customer1 (id, name, age, address, salary)
+    -> values (1,'ramesh',32,'ahmedabad',2000.00);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO CUSTOMERS (ID,NAME,AGE,ADDRESS,SALARY) VALUES (2, 'Khilan', 25, 'Delhi', 1500.00 ); INSERT INTO CUSTOMERS (ID,NAME,AGE,ADDRESS,SALARY) VALUES (3, 'kaushik', 23, 'Kota', 2000.00 ); INSERT INTO CUSTOMERS (ID,NAME,AGE,ADDRESS,SALARY) VALUES (4, 'Chaitali', 25, 'Mumbai', 6500.00 ); INSERT INTO CUSTOMERS (ID,NAME,AGE,ADDRESS,SALARY) VALUES (5, 'Hardik', 27, 'Bhopal', 8500.00 ); INSERT INTO CUSTOMERS (ID,NAME,AGE,ADDRESS,SALARY) VALUES (6, 'Komal', 22, 'MP', 4500.00 );
+ERROR 1062 (23000): Duplicate entry '2' for key 'customers.PRIMARY'
+ERROR 1062 (23000): Duplicate entry '3' for key 'customers.PRIMARY'
+ERROR 1062 (23000): Duplicate entry '4' for key 'customers.PRIMARY'
+ERROR 1062 (23000): Duplicate entry '5' for key 'customers.PRIMARY'
+ERROR 1062 (23000): Duplicate entry '6' for key 'customers.PRIMARY'
+mysql> INSERT INTO CUSTOMERS (ID,NAME,AGE,ADDRESS,SALARY) VALUES (2, 'Khilan', 25, 'Delhi', 1500.00 );
+ERROR 1062 (23000): Duplicate entry '2' for key 'customers.PRIMARY'
+mysql> insert into customer1 (id,name,age,address,salary)
+    -> values
+    -> (;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 3
+mysql> insert into customer1 (id,name,age,address,salary) values
+    -> (2, 'khilan',25,'delhi',1500.00)
+    -> ;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customer1 (id,name,age,address,salary) values
+    -> (2, 'khilan', 25,'delhi' 1500.00),
+    -> (2, 'khilan', 25,'delhi' 1500.00),;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1500.00),
+(2, 'khilan', 25,'delhi' 1500.00),' at line 2
+mysql> insert into customer1 (id, name, age address, salary) values
+    -> (1, 'Ramesh', 32, 'Ahmedabad', 2000.00),
+    -> (2, 'Khilan', 25, 'Delhi', 1500.00),
+    -> (3, 'Kaushik', 23, 'Kota', 2000.00),
+    -> (4, 'Chaitali', 25, 'Mumbai', 6500.00),
+    -> (5, 'Hardik', 27, 'Bhopal', 8500.00),
+    -> (6, 'Komal', 22, 'MP', 4500.00),
+    -> (7, 'Muffy', 24, 'Indore', 10000.00);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'address, salary) values
+(1, 'Ramesh', 32, 'Ahmedabad', 2000.00),
+(2, 'Khilan', 2' at line 1
+mysql> INSERT INTO customer1 (id, name, age, address, salary) VALUES
+    -> (1, 'Ramesh', 32, 'Ahmedabad', 2000.00),
+    -> (2, 'Khilan', 25, 'Delhi', 1500.00),
+    -> (3, 'Kaushik', 23, 'Kota', 2000.00),
+    -> (4, 'Chaitali', 25, 'Mumbai', 6500.00),
+    -> (5, 'Hardik', 27, 'Bhopal', 8500.00),
+    -> (6, 'Komal', 22, 'MP', 4500.00),
+    -> (7, 'Muffy', 24, 'Indore', 10000.00);
+Query OK, 7 rows affected (0.00 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> insert into customer1
+    -> values(8,luffy,20,'brazil',1000.00);
+ERROR 1054 (42S22): Unknown column 'luffy' in 'field list'
+mysql> insert into customer1
+    -> (7, 'luffy', 24, 'brazil', 10000.00);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '7, 'luffy', 24, 'brazil', 10000.00)' at line 2
+mysql> insert into customer1
+    -> values(8,luffy,20,'brazil',1000.00);
+ERROR 1054 (42S22): Unknown column 'luffy' in 'field list'
+mysql> insert into customer1
+    -> (8, 'luffy', 24, 'brazil', 10000.00);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '8, 'luffy', 24, 'brazil', 10000.00)' at line 2
+mysql> INSERT INTO customer1 (id, name, age, address, salary)
+    -> VALUES (8, 'luffy', 24, 'brazil', 10000.00);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select name, age from customer1;
++----------+------+
+| name     | age  |
++----------+------+
+| ramesh   |   32 |
+| khilan   |   25 |
+| Ramesh   |   32 |
+| Khilan   |   25 |
+| Kaushik  |   23 |
+| Chaitali |   25 |
+| Hardik   |   27 |
+| Komal    |   22 |
+| Muffy    |   24 |
+| luffy    |   24 |
++----------+------+
+10 rows in set (0.00 sec)
+
+mysql> select id , name, salary from customer1;
++------+----------+----------+
+| id   | name     | salary   |
++------+----------+----------+
+|    1 | ramesh   |  2000.00 |
+|    2 | khilan   |  1500.00 |
+|    1 | Ramesh   |  2000.00 |
+|    2 | Khilan   |  1500.00 |
+|    3 | Kaushik  |  2000.00 |
+|    4 | Chaitali |  6500.00 |
+|    5 | Hardik   |  8500.00 |
+|    6 | Komal    |  4500.00 |
+|    7 | Muffy    | 10000.00 |
+|    8 | luffy    | 10000.00 |
++------+----------+----------+
+10 rows in set (0.00 sec)
+
+mysql> select * from customer1;
++------+----------+------+-----------+----------+
+| id   | name     | age  | address   | salary   |
++------+----------+------+-----------+----------+
+|    1 | ramesh   |   32 | ahmedabad |  2000.00 |
+|    2 | khilan   |   25 | delhi     |  1500.00 |
+|    1 | Ramesh   |   32 | Ahmedabad |  2000.00 |
+|    2 | Khilan   |   25 | Delhi     |  1500.00 |
+|    3 | Kaushik  |   23 | Kota      |  2000.00 |
+|    4 | Chaitali |   25 | Mumbai    |  6500.00 |
+|    5 | Hardik   |   27 | Bhopal    |  8500.00 |
+|    6 | Komal    |   22 | MP        |  4500.00 |
+|    7 | Muffy    |   24 | Indore    | 10000.00 |
+|    8 | luffy    |   24 | brazil    | 10000.00 |
++------+----------+------+-----------+----------+
+10 rows in set (0.00 sec)
+
+mysql> select id , name, salary
+    -> from customer1
+    -> where salary > 2000;
++------+----------+----------+
+| id   | name     | salary   |
++------+----------+----------+
+|    4 | Chaitali |  6500.00 |
+|    5 | Hardik   |  8500.00 |
+|    6 | Komal    |  4500.00 |
+|    7 | Muffy    | 10000.00 |
+|    8 | luffy    | 10000.00 |
++------+----------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select id, name, salary
+    -> from customer1
+    -> where name = 'Hardik';
++------+--------+---------+
+| id   | name   | salary  |
++------+--------+---------+
+|    5 | Hardik | 8500.00 |
++------+--------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from customer1;
++------+----------+------+-----------+----------+
+| id   | name     | age  | address   | salary   |
++------+----------+------+-----------+----------+
+|    1 | ramesh   |   32 | ahmedabad |  2000.00 |
+|    2 | khilan   |   25 | delhi     |  1500.00 |
+|    1 | Ramesh   |   32 | Ahmedabad |  2000.00 |
+|    2 | Khilan   |   25 | Delhi     |  1500.00 |
+|    3 | Kaushik  |   23 | Kota      |  2000.00 |
+|    4 | Chaitali |   25 | Mumbai    |  6500.00 |
+|    5 | Hardik   |   27 | Bhopal    |  8500.00 |
+|    6 | Komal    |   22 | MP        |  4500.00 |
+|    7 | Muffy    |   24 | Indore    | 10000.00 |
+|    8 | luffy    |   24 | brazil    | 10000.00 |
++------+----------+------+-----------+----------+
+10 rows in set (0.00 sec)
+
+mysql>
