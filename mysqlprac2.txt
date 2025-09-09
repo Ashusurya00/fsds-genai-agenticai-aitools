@@ -1,0 +1,356 @@
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 47
+Server version: 8.0.43 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| cst                |
+| emp                |
+| information_schema |
+| mydb               |
+| mysql              |
+| nit                |
+| performance_schema |
+| sys                |
+| testdb1            |
++--------------------+
+9 rows in set (0.00 sec)
+
+mysql> use nit;
+Database changed
+mysql> show tables;
++---------------+
+| Tables_in_nit |
++---------------+
+| customer1     |
+| customers     |
+| salary        |
+| student       |
++---------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from student;
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| prakash | 12 | hyd     |    78 |
+| cathy   | 17 | slh     |    60 |
+| kodi    | 40 | bng     |    66 |
+| alex    | 45 | chennai |    79 |
+| doly    | 46 | pn      |    67 |
+| chancy  | 67 | mbm     |    34 |
++---------+----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select sum(marks) from student;
++------------+
+| sum(marks) |
++------------+
+|        384 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> delete from student where name = 'kodi';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from student;
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| prakash | 12 | hyd     |    78 |
+| cathy   | 17 | slh     |    60 |
+| alex    | 45 | chennai |    79 |
+| doly    | 46 | pn      |    67 |
+| chancy  | 67 | mbm     |    34 |
++---------+----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select sum(marks) from student;
++------------+
+| sum(marks) |
++------------+
+|        318 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(marks) from student;
++------------+
+| avg(marks) |
++------------+
+|    63.6000 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select count(name) from student;
++-------------+
+| count(name) |
++-------------+
+|           5 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select max(marks) from student;
++------------+
+| max(marks) |
++------------+
+|         79 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select min(marks) from student;
++------------+
+| min(marks) |
++------------+
+|         34 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select * from student order by marks desc;
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| alex    | 45 | chennai |    79 |
+| prakash | 12 | hyd     |    78 |
+| doly    | 46 | pn      |    67 |
+| cathy   | 17 | slh     |    60 |
+| chancy  | 67 | mbm     |    34 |
++---------+----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student order by marks;
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| chancy  | 67 | mbm     |    34 |
+| cathy   | 17 | slh     |    60 |
+| doly    | 46 | pn      |    67 |
+| prakash | 12 | hyd     |    78 |
+| alex    | 45 | chennai |    79 |
++---------+----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student name like '%a';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'like '%a'' at line 1
+mysql> select * from student where name like '%a';
+Empty set (0.00 sec)
+
+mysql> select * from student where name like '%y';
++--------+----+---------+-------+
+| name   | id | address | marks |
++--------+----+---------+-------+
+| cathy  | 17 | slh     |    60 |
+| doly   | 46 | pn      |    67 |
+| chancy | 67 | mbm     |    34 |
++--------+----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from student where name like 'a%';
++------+----+---------+-------+
+| name | id | address | marks |
++------+----+---------+-------+
+| alex | 45 | chennai |    79 |
++------+----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from student where name like 'al%';
++------+----+---------+-------+
+| name | id | address | marks |
++------+----+---------+-------+
+| alex | 45 | chennai |    79 |
++------+----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from student where name like '%ly';
++------+----+---------+-------+
+| name | id | address | marks |
++------+----+---------+-------+
+| doly | 46 | pn      |    67 |
++------+----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from student where name like '_a%';
++-------+----+---------+-------+
+| name  | id | address | marks |
++-------+----+---------+-------+
+| cathy | 17 | slh     |    60 |
++-------+----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from student where name like '%s_';
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| prakash | 12 | hyd     |    78 |
++---------+----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from student where name like '__l%';
++------+----+---------+-------+
+| name | id | address | marks |
++------+----+---------+-------+
+| doly | 46 | pn      |    67 |
++------+----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> create table emp(id int not null primary key, salary int, empcode int, name varchar(60);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> create table emp((id int not null primary key, salary int, empcode int, name varchar(60));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'id int not null primary key, salary int, empcode int, name varchar(60))' at line 1
+mysql> create table emp((id int not null primary key, salary int, empcode int, name varchar(60));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'id int not null primary key, salary int, empcode int, name varchar(60))' at line 1
+mysql> CREATE TABLE employees (
+    ->     id INT NOT NULL PRIMARY KEY,
+    ->     salary INT,
+    ->     empcode INT,
+    ->     name VARCHAR(60)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql>
+mysql> insert into emp values(12, 20000,102, 'aman'),(23,60000,104m'arup'),(78,30000,105,'max'),
+    -> (80,25000,103,'ram'),(34,90000,'sam');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''arup'),(78,30000,105,'max'),
+(80,25000,103,'ram'),(34,90000,'sam')' at line 1
+mysql> INSERT INTO emp (id, salary, empcode, name)
+    -> VALUES
+    ->     (12, 20000, 102, 'aman'),
+    ->     (23, 60000, 104, 'arup'),
+    ->     (78, 30000, 105, 'max'),
+    ->     (80, 25000, 103, 'ram'),
+    ->     (34, 90000, 106, 'sam');
+ERROR 1146 (42S02): Table 'nit.emp' doesn't exist
+mysql>
+mysql> INSERT INTO employees (id, salary, empcode, name)
+    ->   (12, 20000, 102, 'aman'),
+    ->     ->     (23, 60000, 104, 'arup'),
+    ->     ->     (78, 30000, 105, 'max'),
+    ->     ->     (80, 25000, 103, 'ram'),
+    ->     ->     (34, 90000, 106, 'sam');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '12, 20000, 102, 'aman'),
+    ->     (23, 60000, 104, 'arup'),
+    ->     (78, 30' at line 2
+mysql> INSERT INTO employees (id, salary, empcode, name)
+    -> values
+    ->  (12, 20000, 102, 'aman'),
+    ->     ->     (23, 60000, 104, 'arup'),
+    ->     ->     (78, 30000, 105, 'max'),
+    ->     ->     (80, 25000, 103, 'ram'),
+    ->     ->     (34, 90000, 106, 'sam');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '->     (23, 60000, 104, 'arup'),
+    ->     (78, 30000, 105, 'max'),
+    ->     ' at line 4
+mysql> INSERT INTO employees (id, salary, empcode, name)
+    -> values
+    -> (12, 20000, 102, 'aman'),
+    ->     (23, 60000, 104, 'arup'),
+    ->     (78, 30000, 105, 'max'),
+    ->     (80, 25000, 103, 'ram'),
+    ->     (90, 25000, 103, 'sam');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from student inner join employees on student.id=emp.id;
+ERROR 1054 (42S22): Unknown column 'emp.id' in 'on clause'
+mysql> select * from student inner join employees on student.id=employees.id;
++---------+----+---------+-------+----+--------+---------+------+
+| name    | id | address | marks | id | salary | empcode | name |
++---------+----+---------+-------+----+--------+---------+------+
+| prakash | 12 | hyd     |    78 | 12 |  20000 |     102 | aman |
++---------+----+---------+-------+----+--------+---------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from student;
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| prakash | 12 | hyd     |    78 |
+| cathy   | 17 | slh     |    60 |
+| alex    | 45 | chennai |    79 |
+| doly    | 46 | pn      |    67 |
+| chancy  | 67 | mbm     |    34 |
++---------+----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from employees;
++----+--------+---------+------+
+| id | salary | empcode | name |
++----+--------+---------+------+
+| 12 |  20000 |     102 | aman |
+| 23 |  60000 |     104 | arup |
+| 78 |  30000 |     105 | max  |
+| 80 |  25000 |     103 | ram  |
+| 90 |  25000 |     103 | sam  |
++----+--------+---------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student left join emp on student.id=employees.id;
+ERROR 1146 (42S02): Table 'nit.emp' doesn't exist
+mysql> select * from student left join employees on student.id=employees.id;
++---------+----+---------+-------+------+--------+---------+------+
+| name    | id | address | marks | id   | salary | empcode | name |
++---------+----+---------+-------+------+--------+---------+------+
+| prakash | 12 | hyd     |    78 |   12 |  20000 |     102 | aman |
+| cathy   | 17 | slh     |    60 | NULL |   NULL |    NULL | NULL |
+| alex    | 45 | chennai |    79 | NULL |   NULL |    NULL | NULL |
+| doly    | 46 | pn      |    67 | NULL |   NULL |    NULL | NULL |
+| chancy  | 67 | mbm     |    34 | NULL |   NULL |    NULL | NULL |
++---------+----+---------+-------+------+--------+---------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student right join employees on student.id=employees.id;
++---------+------+---------+-------+----+--------+---------+------+
+| name    | id   | address | marks | id | salary | empcode | name |
++---------+------+---------+-------+----+--------+---------+------+
+| prakash |   12 | hyd     |    78 | 12 |  20000 |     102 | aman |
+| NULL    | NULL | NULL    |  NULL | 23 |  60000 |     104 | arup |
+| NULL    | NULL | NULL    |  NULL | 78 |  30000 |     105 | max  |
+| NULL    | NULL | NULL    |  NULL | 80 |  25000 |     103 | ram  |
+| NULL    | NULL | NULL    |  NULL | 90 |  25000 |     103 | sam  |
++---------+------+---------+-------+----+--------+---------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student cross joint employees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'joint employees' at line 1
+mysql> select * from student cross joint employees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'joint employees' at line 1
+mysql> select * from student cross join employees;
++---------+----+---------+-------+----+--------+---------+------+
+| name    | id | address | marks | id | salary | empcode | name |
++---------+----+---------+-------+----+--------+---------+------+
+| chancy  | 67 | mbm     |    34 | 12 |  20000 |     102 | aman |
+| doly    | 46 | pn      |    67 | 12 |  20000 |     102 | aman |
+| alex    | 45 | chennai |    79 | 12 |  20000 |     102 | aman |
+| cathy   | 17 | slh     |    60 | 12 |  20000 |     102 | aman |
+| prakash | 12 | hyd     |    78 | 12 |  20000 |     102 | aman |
+| chancy  | 67 | mbm     |    34 | 23 |  60000 |     104 | arup |
+| doly    | 46 | pn      |    67 | 23 |  60000 |     104 | arup |
+| alex    | 45 | chennai |    79 | 23 |  60000 |     104 | arup |
+| cathy   | 17 | slh     |    60 | 23 |  60000 |     104 | arup |
+| prakash | 12 | hyd     |    78 | 23 |  60000 |     104 | arup |
+| chancy  | 67 | mbm     |    34 | 78 |  30000 |     105 | max  |
+| doly    | 46 | pn      |    67 | 78 |  30000 |     105 | max  |
+| alex    | 45 | chennai |    79 | 78 |  30000 |     105 | max  |
+| cathy   | 17 | slh     |    60 | 78 |  30000 |     105 | max  |
+| prakash | 12 | hyd     |    78 | 78 |  30000 |     105 | max  |
+| chancy  | 67 | mbm     |    34 | 80 |  25000 |     103 | ram  |
+| doly    | 46 | pn      |    67 | 80 |  25000 |     103 | ram  |
+| alex    | 45 | chennai |    79 | 80 |  25000 |     103 | ram  |
+| cathy   | 17 | slh     |    60 | 80 |  25000 |     103 | ram  |
+| prakash | 12 | hyd     |    78 | 80 |  25000 |     103 | ram  |
+| chancy  | 67 | mbm     |    34 | 90 |  25000 |     103 | sam  |
+| doly    | 46 | pn      |    67 | 90 |  25000 |     103 | sam  |
+| alex    | 45 | chennai |    79 | 90 |  25000 |     103 | sam  |
+| cathy   | 17 | slh     |    60 | 90 |  25000 |     103 | sam  |
+| prakash | 12 | hyd     |    78 | 90 |  25000 |     103 | sam  |
++---------+----+---------+-------+----+--------+---------+------+
+25 rows in set (0.00 sec)
