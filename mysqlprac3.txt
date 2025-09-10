@@ -1,0 +1,1163 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| cst                |
+| emp                |
+| information_schema |
+| mydb               |
+| mysql              |
+| nit                |
+| performance_schema |
+| sys                |
+| testdb1            |
++--------------------+
+9 rows in set (0.03 sec)
+
+mysql> use cst;
+Database changed
+mysql> show tables;
++---------------+
+| Tables_in_cst |
++---------------+
+| customer      |
+| emp           |
+| orders        |
+| student       |
++---------------+
+4 rows in set (0.01 sec)
+
+mysql> drop table customer;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> drop table emp;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> drop table orders;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> drop table student;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> create table customer (
+    -> id int primary key,
+    -> name varchar(50),
+    -> age int,
+    -> address varchar(100),
+    -> salary decimal(10,2)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into customer (id, name, age, address, salary) values
+    -> (1, 'ramesh', 32, 'ahmedabad',2000.00),
+    -> (2, 'khilan', 25, 'delhi', 1500.00),
+    -> (3, 'kaushik', 23, 'kota', 2000.00),
+    -> (4, 'chaitali', 25, 'mumbai', 6500.00),
+    -> (5, 'hardik', 27, 'bhopal',8500.00),
+    -> (6, 'komal', 22, 'mp', 4500.00),
+    -> (7, 'muffy', 24, 'indore', 10000.00);
+Query OK, 7 rows affected (0.01 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> select * from customer;
++----+----------+------+-----------+----------+
+| id | name     | age  | address   | salary   |
++----+----------+------+-----------+----------+
+|  1 | ramesh   |   32 | ahmedabad |  2000.00 |
+|  2 | khilan   |   25 | delhi     |  1500.00 |
+|  3 | kaushik  |   23 | kota      |  2000.00 |
+|  4 | chaitali |   25 | mumbai    |  6500.00 |
+|  5 | hardik   |   27 | bhopal    |  8500.00 |
+|  6 | komal    |   22 | mp        |  4500.00 |
+|  7 | muffy    |   24 | indore    | 10000.00 |
++----+----------+------+-----------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select * from customer where salary > 5000;
++----+----------+------+---------+----------+
+| id | name     | age  | address | salary   |
++----+----------+------+---------+----------+
+|  4 | chaitali |   25 | mumbai  |  6500.00 |
+|  5 | hardik   |   27 | bhopal  |  8500.00 |
+|  7 | muffy    |   24 | indore  | 10000.00 |
++----+----------+------+---------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select from customer where salary = 2000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from customer where salary = 2000' at line 1
+mysql> select * from customer where salary = 2000;
++----+---------+------+-----------+---------+
+| id | name    | age  | address   | salary  |
++----+---------+------+-----------+---------+
+|  1 | ramesh  |   32 | ahmedabad | 2000.00 |
+|  3 | kaushik |   23 | kota      | 2000.00 |
++----+---------+------+-----------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from customer where salary != 2000;
++----+----------+------+---------+----------+
+| id | name     | age  | address | salary   |
++----+----------+------+---------+----------+
+|  2 | khilan   |   25 | delhi   |  1500.00 |
+|  4 | chaitali |   25 | mumbai  |  6500.00 |
+|  5 | hardik   |   27 | bhopal  |  8500.00 |
+|  6 | komal    |   22 | mp      |  4500.00 |
+|  7 | muffy    |   24 | indore  | 10000.00 |
++----+----------+------+---------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customer where salary <> 2000;
++----+----------+------+---------+----------+
+| id | name     | age  | address | salary   |
++----+----------+------+---------+----------+
+|  2 | khilan   |   25 | delhi   |  1500.00 |
+|  4 | chaitali |   25 | mumbai  |  6500.00 |
+|  5 | hardik   |   27 | bhopal  |  8500.00 |
+|  6 | komal    |   22 | mp      |  4500.00 |
+|  7 | muffy    |   24 | indore  | 10000.00 |
++----+----------+------+---------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customer where salary >= 6500;
++----+----------+------+---------+----------+
+| id | name     | age  | address | salary   |
++----+----------+------+---------+----------+
+|  4 | chaitali |   25 | mumbai  |  6500.00 |
+|  5 | hardik   |   27 | bhopal  |  8500.00 |
+|  7 | muffy    |   24 | indore  | 10000.00 |
++----+----------+------+---------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customer;
++----+----------+------+-----------+----------+
+| id | name     | age  | address   | salary   |
++----+----------+------+-----------+----------+
+|  1 | ramesh   |   32 | ahmedabad |  2000.00 |
+|  2 | khilan   |   25 | delhi     |  1500.00 |
+|  3 | kaushik  |   23 | kota      |  2000.00 |
+|  4 | chaitali |   25 | mumbai    |  6500.00 |
+|  5 | hardik   |   27 | bhopal    |  8500.00 |
+|  6 | komal    |   22 | mp        |  4500.00 |
+|  7 | muffy    |   24 | indore    | 10000.00 |
++----+----------+------+-----------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select * from customer where age >= 25 or salary >= 6500;
++----+----------+------+-----------+----------+
+| id | name     | age  | address   | salary   |
++----+----------+------+-----------+----------+
+|  1 | ramesh   |   32 | ahmedabad |  2000.00 |
+|  2 | khilan   |   25 | delhi     |  1500.00 |
+|  4 | chaitali |   25 | mumbai    |  6500.00 |
+|  5 | hardik   |   27 | bhopal    |  8500.00 |
+|  7 | muffy    |   24 | indore    | 10000.00 |
++----+----------+------+-----------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customer where age is not null;
++----+----------+------+-----------+----------+
+| id | name     | age  | address   | salary   |
++----+----------+------+-----------+----------+
+|  1 | ramesh   |   32 | ahmedabad |  2000.00 |
+|  2 | khilan   |   25 | delhi     |  1500.00 |
+|  3 | kaushik  |   23 | kota      |  2000.00 |
+|  4 | chaitali |   25 | mumbai    |  6500.00 |
+|  5 | hardik   |   27 | bhopal    |  8500.00 |
+|  6 | komal    |   22 | mp        |  4500.00 |
+|  7 | muffy    |   24 | indore    | 10000.00 |
++----+----------+------+-----------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select * from customer where name like 'ko%';
++----+-------+------+---------+---------+
+| id | name  | age  | address | salary  |
++----+-------+------+---------+---------+
+|  6 | komal |   22 | mp      | 4500.00 |
++----+-------+------+---------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from customer where age in (25, 27);
++----+----------+------+---------+---------+
+| id | name     | age  | address | salary  |
++----+----------+------+---------+---------+
+|  2 | khilan   |   25 | delhi   | 1500.00 |
+|  4 | chaitali |   25 | mumbai  | 6500.00 |
+|  5 | hardik   |   27 | bhopal  | 8500.00 |
++----+----------+------+---------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customer where age between 25 and 27;
++----+----------+------+---------+---------+
+| id | name     | age  | address | salary  |
++----+----------+------+---------+---------+
+|  2 | khilan   |   25 | delhi   | 1500.00 |
+|  4 | chaitali |   25 | mumbai  | 6500.00 |
+|  5 | hardik   |   27 | bhopal  | 8500.00 |
++----+----------+------+---------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select age from customer
+    -> where exists (select age from customer where salary > 6500);
++------+
+| age  |
++------+
+|   32 |
+|   25 |
+|   23 |
+|   25 |
+|   27 |
+|   22 |
+|   24 |
++------+
+7 rows in set (0.00 sec)
+
+mysql> select * from customer
+    -> where age>any (select age from customer where salary > 6500);
++----+----------+------+-----------+---------+
+| id | name     | age  | address   | salary  |
++----+----------+------+-----------+---------+
+|  1 | ramesh   |   32 | ahmedabad | 2000.00 |
+|  2 | khilan   |   25 | delhi     | 1500.00 |
+|  4 | chaitali |   25 | mumbai    | 6500.00 |
+|  5 | hardik   |   27 | bhopal    | 8500.00 |
++----+----------+------+-----------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select * from customer where salary = 10000;
++----+-------+------+---------+----------+
+| id | name  | age  | address | salary   |
++----+-------+------+---------+----------+
+|  7 | muffy |   24 | indore  | 10000.00 |
++----+-------+------+---------+----------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) as record from customer;
++--------+
+| record |
++--------+
+|      7 |
++--------+
+1 row in set (0.01 sec)
+
+mysql> select current_timestamp;
++---------------------+
+| current_timestamp   |
++---------------------+
+| 2025-09-10 10:13:51 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> desc customer;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| id      | int           | NO   | PRI | NULL    |       |
+| name    | varchar(50)   | YES  |     | NULL    |       |
+| age     | int           | YES  |     | NULL    |       |
+| address | varchar(100)  | YES  |     | NULL    |       |
+| salary  | decimal(10,2) | YES  |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> select * from customer;
++----+----------+------+-----------+----------+
+| id | name     | age  | address   | salary   |
++----+----------+------+-----------+----------+
+|  1 | ramesh   |   32 | ahmedabad |  2000.00 |
+|  2 | khilan   |   25 | delhi     |  1500.00 |
+|  3 | kaushik  |   23 | kota      |  2000.00 |
+|  4 | chaitali |   25 | mumbai    |  6500.00 |
+|  5 | hardik   |   27 | bhopal    |  8500.00 |
+|  6 | komal    |   22 | mp        |  4500.00 |
+|  7 | muffy    |   24 | indore    | 10000.00 |
++----+----------+------+-----------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select id, name, salary from customer;
++----+----------+----------+
+| id | name     | salary   |
++----+----------+----------+
+|  1 | ramesh   |  2000.00 |
+|  2 | khilan   |  1500.00 |
+|  3 | kaushik  |  2000.00 |
+|  4 | chaitali |  6500.00 |
+|  5 | hardik   |  8500.00 |
+|  6 | komal    |  4500.00 |
+|  7 | muffy    | 10000.00 |
++----+----------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select id, name, salary
+    -> from customer
+    -> where salary > 2000;
++----+----------+----------+
+| id | name     | salary   |
++----+----------+----------+
+|  4 | chaitali |  6500.00 |
+|  5 | hardik   |  8500.00 |
+|  6 | komal    |  4500.00 |
+|  7 | muffy    | 10000.00 |
++----+----------+----------+
+4 rows in set (0.00 sec)
+
+mysql> show tables;
++---------------+
+| Tables_in_cst |
++---------------+
+| customer      |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> create table student (
+    -> name varchar(50),
+    -> id int not null primary,
+    -> address varchar(50),
+    -> marks int,
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',
+address varchar(50),
+marks int,
+)' at line 3
+mysql> CREATE TABLE student (
+    ->     name VARCHAR(50),
+    ->     id INT NOT NULL PRIMARY KEY,
+    ->     address VARCHAR(50),
+    ->     marks INT
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into student (name, id, address, marks) values
+    -> ('prakash',12,'hyd',78)
+    -> ('cathy',17,'delhi',60)
+    -> ('alex',45,'chennai',79)
+    -> ('doly',46,'pune',67)
+    -> ('chancy',67,'mumbai',34);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '('cathy',17,'delhi',60)
+('alex',45,'chennai',79)
+('doly',46,'pune',67)
+('chancy'' at line 3
+mysql> insert into student (name, id, address, marks) values
+    -> ('prakash',12,'hyd',78),
+    -> ('cathy',17,'delhi',60),
+    -> ('alex',45,'chennai',79),
+    -> ('doly',46,'pune',67),
+    -> ('chancy',67,'mumbai',34);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> create table emp (
+    -> id not null primary key,
+    -> salary int,
+    -> empcode int,
+    -> name varchar (50)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'not null primary key,
+salary int,
+empcode int,
+name varchar (50)
+)' at line 2
+mysql> create table emp (
+    -> id not null primary key,
+    -> salary int,
+    -> empcode int,
+    -> name varchar (50),
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'not null primary key,
+salary int,
+empcode int,
+name varchar (50),
+)' at line 2
+mysql> create table emp (
+    -> id int not null primary key,
+    -> salary int,
+    -> empcode int,
+    -> name varchar(50)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into emp (id, salary, empcode, name) values
+    -> (12, 20000, 102, aman),
+    -> (23, 60000, 104, arup),
+    -> (78, 30000, 105, max),
+    -> (80, 25000, 103, ram),
+    -> (90, 26000, 107, sam);
+ERROR 1054 (42S22): Unknown column 'aman' in 'field list'
+mysql> insert into emp (id, salary, empcode, name) values
+    -> (12, 20000, 102, 'aman'),
+    -> (23, 60000, 104, 'arup'),
+    -> (78, 30000, 105, 'max'),
+    -> (80, 25000, 103, 'ram'),
+    -> (90, 26000, 107, 'sam');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select from student inner join employees on student.id = emp.id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from student inner join employees on student.id = emp.id' at line 1
+mysql> select * from student inner join emp on student.id = emp.id;
++---------+----+---------+-------+----+--------+---------+------+
+| name    | id | address | marks | id | salary | empcode | name |
++---------+----+---------+-------+----+--------+---------+------+
+| prakash | 12 | hyd     |    78 | 12 |  20000 |     102 | aman |
++---------+----+---------+-------+----+--------+---------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from student inner join emp on student.id = emp.id;
++---------+----+---------+-------+----+--------+---------+------+
+| name    | id | address | marks | id | salary | empcode | name |
++---------+----+---------+-------+----+--------+---------+------+
+| prakash | 12 | hyd     |    78 | 12 |  20000 |     102 | aman |
++---------+----+---------+-------+----+--------+---------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from student inner join emp on student.id = emp.id;
++---------+----+---------+-------+----+--------+---------+------+
+| name    | id | address | marks | id | salary | empcode | name |
++---------+----+---------+-------+----+--------+---------+------+
+| prakash | 12 | hyd     |    78 | 12 |  20000 |     102 | aman |
++---------+----+---------+-------+----+--------+---------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from student inner join emp on student.id = emp.id;
++---------+----+---------+-------+----+--------+---------+------+
+| name    | id | address | marks | id | salary | empcode | name |
++---------+----+---------+-------+----+--------+---------+------+
+| prakash | 12 | hyd     |    78 | 12 |  20000 |     102 | aman |
++---------+----+---------+-------+----+--------+---------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from student inner join emp on student.id = emp.id;
++---------+----+---------+-------+----+--------+---------+------+
+| name    | id | address | marks | id | salary | empcode | name |
++---------+----+---------+-------+----+--------+---------+------+
+| prakash | 12 | hyd     |    78 | 12 |  20000 |     102 | aman |
++---------+----+---------+-------+----+--------+---------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from student left join emp on student.id = emp.id;
++---------+----+---------+-------+------+--------+---------+------+
+| name    | id | address | marks | id   | salary | empcode | name |
++---------+----+---------+-------+------+--------+---------+------+
+| prakash | 12 | hyd     |    78 |   12 |  20000 |     102 | aman |
+| cathy   | 17 | delhi   |    60 | NULL |   NULL |    NULL | NULL |
+| alex    | 45 | chennai |    79 | NULL |   NULL |    NULL | NULL |
+| doly    | 46 | pune    |    67 | NULL |   NULL |    NULL | NULL |
+| chancy  | 67 | mumbai  |    34 | NULL |   NULL |    NULL | NULL |
++---------+----+---------+-------+------+--------+---------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student left join emp on student.id = emp.id;
++---------+----+---------+-------+------+--------+---------+------+
+| name    | id | address | marks | id   | salary | empcode | name |
++---------+----+---------+-------+------+--------+---------+------+
+| prakash | 12 | hyd     |    78 |   12 |  20000 |     102 | aman |
+| cathy   | 17 | delhi   |    60 | NULL |   NULL |    NULL | NULL |
+| alex    | 45 | chennai |    79 | NULL |   NULL |    NULL | NULL |
+| doly    | 46 | pune    |    67 | NULL |   NULL |    NULL | NULL |
+| chancy  | 67 | mumbai  |    34 | NULL |   NULL |    NULL | NULL |
++---------+----+---------+-------+------+--------+---------+------+
+5 rows in set (0.00 sec)
+
+mysql> student * from student right join emp on student.id = emp.id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'student * from student right join emp on student.id = emp.id' at line 1
+mysql> select * from student right join emp on student.id = emp.id;
++---------+------+---------+-------+----+--------+---------+------+
+| name    | id   | address | marks | id | salary | empcode | name |
++---------+------+---------+-------+----+--------+---------+------+
+| prakash |   12 | hyd     |    78 | 12 |  20000 |     102 | aman |
+| NULL    | NULL | NULL    |  NULL | 23 |  60000 |     104 | arup |
+| NULL    | NULL | NULL    |  NULL | 78 |  30000 |     105 | max  |
+| NULL    | NULL | NULL    |  NULL | 80 |  25000 |     103 | ram  |
+| NULL    | NULL | NULL    |  NULL | 90 |  26000 |     107 | sam  |
++---------+------+---------+-------+----+--------+---------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student right join emp on student.id = emp.id;
++---------+------+---------+-------+----+--------+---------+------+
+| name    | id   | address | marks | id | salary | empcode | name |
++---------+------+---------+-------+----+--------+---------+------+
+| prakash |   12 | hyd     |    78 | 12 |  20000 |     102 | aman |
+| NULL    | NULL | NULL    |  NULL | 23 |  60000 |     104 | arup |
+| NULL    | NULL | NULL    |  NULL | 78 |  30000 |     105 | max  |
+| NULL    | NULL | NULL    |  NULL | 80 |  25000 |     103 | ram  |
+| NULL    | NULL | NULL    |  NULL | 90 |  26000 |     107 | sam  |
++---------+------+---------+-------+----+--------+---------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student;
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| prakash | 12 | hyd     |    78 |
+| cathy   | 17 | delhi   |    60 |
+| alex    | 45 | chennai |    79 |
+| doly    | 46 | pune    |    67 |
+| chancy  | 67 | mumbai  |    34 |
++---------+----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from emp;
++----+--------+---------+------+
+| id | salary | empcode | name |
++----+--------+---------+------+
+| 12 |  20000 |     102 | aman |
+| 23 |  60000 |     104 | arup |
+| 78 |  30000 |     105 | max  |
+| 80 |  25000 |     103 | ram  |
+| 90 |  26000 |     107 | sam  |
++----+--------+---------+------+
+5 rows in set (0.00 sec)
+
+mysql> desc student;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| name    | varchar(50) | YES  |     | NULL    |       |
+| id      | int         | NO   | PRI | NULL    |       |
+| address | varchar(50) | YES  |     | NULL    |       |
+| marks   | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc emp;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| id      | int         | NO   | PRI | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
+| empcode | int         | YES  |     | NULL    |       |
+| name    | varchar(50) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from student cross join emp;
++---------+----+---------+-------+----+--------+---------+------+
+| name    | id | address | marks | id | salary | empcode | name |
++---------+----+---------+-------+----+--------+---------+------+
+| chancy  | 67 | mumbai  |    34 | 12 |  20000 |     102 | aman |
+| doly    | 46 | pune    |    67 | 12 |  20000 |     102 | aman |
+| alex    | 45 | chennai |    79 | 12 |  20000 |     102 | aman |
+| cathy   | 17 | delhi   |    60 | 12 |  20000 |     102 | aman |
+| prakash | 12 | hyd     |    78 | 12 |  20000 |     102 | aman |
+| chancy  | 67 | mumbai  |    34 | 23 |  60000 |     104 | arup |
+| doly    | 46 | pune    |    67 | 23 |  60000 |     104 | arup |
+| alex    | 45 | chennai |    79 | 23 |  60000 |     104 | arup |
+| cathy   | 17 | delhi   |    60 | 23 |  60000 |     104 | arup |
+| prakash | 12 | hyd     |    78 | 23 |  60000 |     104 | arup |
+| chancy  | 67 | mumbai  |    34 | 78 |  30000 |     105 | max  |
+| doly    | 46 | pune    |    67 | 78 |  30000 |     105 | max  |
+| alex    | 45 | chennai |    79 | 78 |  30000 |     105 | max  |
+| cathy   | 17 | delhi   |    60 | 78 |  30000 |     105 | max  |
+| prakash | 12 | hyd     |    78 | 78 |  30000 |     105 | max  |
+| chancy  | 67 | mumbai  |    34 | 80 |  25000 |     103 | ram  |
+| doly    | 46 | pune    |    67 | 80 |  25000 |     103 | ram  |
+| alex    | 45 | chennai |    79 | 80 |  25000 |     103 | ram  |
+| cathy   | 17 | delhi   |    60 | 80 |  25000 |     103 | ram  |
+| prakash | 12 | hyd     |    78 | 80 |  25000 |     103 | ram  |
+| chancy  | 67 | mumbai  |    34 | 90 |  26000 |     107 | sam  |
+| doly    | 46 | pune    |    67 | 90 |  26000 |     107 | sam  |
+| alex    | 45 | chennai |    79 | 90 |  26000 |     107 | sam  |
+| cathy   | 17 | delhi   |    60 | 90 |  26000 |     107 | sam  |
+| prakash | 12 | hyd     |    78 | 90 |  26000 |     107 | sam  |
++---------+----+---------+-------+----+--------+---------+------+
+25 rows in set (0.00 sec)
+
+mysql> select sum(marks) from student;
++------------+
+| sum(marks) |
++------------+
+|        318 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(marks) from student;
++------------+
+| sum(marks) |
++------------+
+|        318 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> delete from student where name = 'kodi';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from student;
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| prakash | 12 | hyd     |    78 |
+| cathy   | 17 | delhi   |    60 |
+| alex    | 45 | chennai |    79 |
+| doly    | 46 | pune    |    67 |
+| chancy  | 67 | mumbai  |    34 |
++---------+----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into student
+    -> values('kodi',23,'banglore',76);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from student ;
++---------+----+----------+-------+
+| name    | id | address  | marks |
++---------+----+----------+-------+
+| prakash | 12 | hyd      |    78 |
+| cathy   | 17 | delhi    |    60 |
+| kodi    | 23 | banglore |    76 |
+| alex    | 45 | chennai  |    79 |
+| doly    | 46 | pune     |    67 |
+| chancy  | 67 | mumbai   |    34 |
++---------+----+----------+-------+
+6 rows in set (0.00 sec)
+
+mysql> delete from student where name = 'kodi';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select sum(marks) from student;
++------------+
+| sum(marks) |
++------------+
+|        318 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(marks) from student;
++------------+
+| avg(marks) |
++------------+
+|    63.6000 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select count(name) from student;
++-------------+
+| count(name) |
++-------------+
+|           5 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select count(name) from student;
++-------------+
+| count(name) |
++-------------+
+|           5 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select max(marks) from student;
++------------+
+| max(marks) |
++------------+
+|         79 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select min(marks from student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from student' at line 1
+mysql> select min(marks) from student;
++------------+
+| min(marks) |
++------------+
+|         34 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select * from student order by marks;
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| chancy  | 67 | mumbai  |    34 |
+| cathy   | 17 | delhi   |    60 |
+| doly    | 46 | pune    |    67 |
+| prakash | 12 | hyd     |    78 |
+| alex    | 45 | chennai |    79 |
++---------+----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student order by marks;
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| chancy  | 67 | mumbai  |    34 |
+| cathy   | 17 | delhi   |    60 |
+| doly    | 46 | pune    |    67 |
+| prakash | 12 | hyd     |    78 |
+| alex    | 45 | chennai |    79 |
++---------+----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student order by marks desc;
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| alex    | 45 | chennai |    79 |
+| prakash | 12 | hyd     |    78 |
+| doly    | 46 | pune    |    67 |
+| cathy   | 17 | delhi   |    60 |
+| chancy  | 67 | mumbai  |    34 |
++---------+----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student like '%a';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'like '%a'' at line 1
+mysql> select * from student where name like '%a';
+Empty set (0.00 sec)
+
+mysql> select * from student where name like '%y';
++--------+----+---------+-------+
+| name   | id | address | marks |
++--------+----+---------+-------+
+| cathy  | 17 | delhi   |    60 |
+| doly   | 46 | pune    |    67 |
+| chancy | 67 | mumbai  |    34 |
++--------+----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from student where name like '%y';
++--------+----+---------+-------+
+| name   | id | address | marks |
++--------+----+---------+-------+
+| cathy  | 17 | delhi   |    60 |
+| doly   | 46 | pune    |    67 |
+| chancy | 67 | mumbai  |    34 |
++--------+----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from student where name like 'c%';
++--------+----+---------+-------+
+| name   | id | address | marks |
++--------+----+---------+-------+
+| cathy  | 17 | delhi   |    60 |
+| chancy | 67 | mumbai  |    34 |
++--------+----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from student where name like '__n%';
+Empty set (0.00 sec)
+
+mysql> select * from student where name like '___n%';
++--------+----+---------+-------+
+| name   | id | address | marks |
++--------+----+---------+-------+
+| chancy | 67 | mumbai  |    34 |
++--------+----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from student where name like 'do%';
++------+----+---------+-------+
+| name | id | address | marks |
++------+----+---------+-------+
+| doly | 46 | pune    |    67 |
++------+----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from student where name like '%ly';
++------+----+---------+-------+
+| name | id | address | marks |
++------+----+---------+-------+
+| doly | 46 | pune    |    67 |
++------+----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from student where name like '%n__';
++--------+----+---------+-------+
+| name   | id | address | marks |
++--------+----+---------+-------+
+| chancy | 67 | mumbai  |    34 |
++--------+----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> create table orders (
+    -> oid int not null,
+    -> date date_time,
+    -> id int not null,
+    -> amount not null
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'date_time,
+id int not null,
+amount not null
+)' at line 3
+mysql> create table orders (
+    -> oid int not null primary key,
+    -> date datetime,
+    -> id int not null,
+    -> amount decimal (10, 2)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into orders (
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> insert into orders (oid, date, id, amount)
+    -> values
+    -> (102,2009-10-08 00:00:00,3,3000),
+    -> (100,2009-10-08 00:00:00,3,1500),
+    -> (101,2009-11-20 00:00:00,2,1560),
+    -> (103,2008-05-20 00:00:00,4,2060);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '00:00:00,3,3000),
+(100,2009-10-08 00:00:00,3,1500),
+(101,2009-11-20 00:00:00,2,1' at line 3
+mysql> insert into orders (oid, date, id, amount)
+    -> values
+    -> (102,'2009-10-08 00:00:00',3,3000),
+    -> (100,'2009-10-08 00:00:00',3,1500),
+    -> (101,'2009-11-20 00:00:00',2,1560),
+    -> (103,'2008-05-20 00:00:00',4,2060);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select id, name, amount, date
+    -> from customer
+    -> inner join orders
+    -> on customer.id = orders.id;
+ERROR 1052 (23000): Column 'id' in field list is ambiguous
+mysql> select id, name, amount, date
+    -> from customer
+    -> inner join orders
+    -> on customer.id = orders.customer_id;
+ERROR 1052 (23000): Column 'id' in field list is ambiguous
+mysql> select id, name, amount, date
+    ->
+    -> from customer.id
+    -> inner join orders
+    -> on customer.id = orders.id;
+ERROR 1049 (42000): Unknown database 'customer'
+mysql> select id, name, amount, date
+    -> from customer;
+ERROR 1054 (42S22): Unknown column 'amount' in 'field list'
+mysql> SELECT customer.id, customer.name, orders.amount, orders.order_date
+    -> FROM customer
+    -> INNER JOIN orders
+    ->     ON customer.id = orders.id;
+ERROR 1054 (42S22): Unknown column 'orders.order_date' in 'field list'
+mysql> select customer.id, customer.name, orders.amount,orders.date
+    -> from customer
+    -> inner join orders
+    -> on customer.id = order.id;
+ERROR 1054 (42S22): Unknown column 'order.id' in 'on clause'
+mysql> select customer.id, customer.name, orders.amount,orders.date
+    -> from customer
+    -> inner join orders
+    -> on customer.id = orders.id;
++----+----------+---------+---------------------+
+| id | name     | amount  | date                |
++----+----------+---------+---------------------+
+|  3 | kaushik  | 1500.00 | 2009-10-08 00:00:00 |
+|  2 | khilan   | 1560.00 | 2009-11-20 00:00:00 |
+|  3 | kaushik  | 3000.00 | 2009-10-08 00:00:00 |
+|  4 | chaitali | 2060.00 | 2008-05-20 00:00:00 |
++----+----------+---------+---------------------+
+4 rows in set (0.00 sec)
+
+mysql> select customer.id, customer.name, orders.amount, orders.date
+    -> from customer
+    -> inner join orders
+    -> on customer.id = orders.id;
++----+----------+---------+---------------------+
+| id | name     | amount  | date                |
++----+----------+---------+---------------------+
+|  3 | kaushik  | 1500.00 | 2009-10-08 00:00:00 |
+|  2 | khilan   | 1560.00 | 2009-11-20 00:00:00 |
+|  3 | kaushik  | 3000.00 | 2009-10-08 00:00:00 |
+|  4 | chaitali | 2060.00 | 2008-05-20 00:00:00 |
++----+----------+---------+---------------------+
+4 rows in set (0.00 sec)
+
+mysql> select customer.id , customer.name, orders.amount, orders.date
+    -> from customer
+    -> inner join orders
+    -> on customer.id = orders.id;
++----+----------+---------+---------------------+
+| id | name     | amount  | date                |
++----+----------+---------+---------------------+
+|  3 | kaushik  | 1500.00 | 2009-10-08 00:00:00 |
+|  2 | khilan   | 1560.00 | 2009-11-20 00:00:00 |
+|  3 | kaushik  | 3000.00 | 2009-10-08 00:00:00 |
+|  4 | chaitali | 2060.00 | 2008-05-20 00:00:00 |
++----+----------+---------+---------------------+
+4 rows in set (0.00 sec)
+
+mysql> select customer.id, customer.name, orders.amount, orders.date
+    -> from customer
+    -> left join order
+    -> on customer.id = orders.id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order
+on customer.id = orders.id' at line 3
+mysql> select customer.id, customer.name, orders.amount, orders.date
+    -> from customer
+    -> left join orders
+    -> on customer.id = orders.id;
++----+----------+---------+---------------------+
+| id | name     | amount  | date                |
++----+----------+---------+---------------------+
+|  1 | ramesh   |    NULL | NULL                |
+|  2 | khilan   | 1560.00 | 2009-11-20 00:00:00 |
+|  3 | kaushik  | 3000.00 | 2009-10-08 00:00:00 |
+|  3 | kaushik  | 1500.00 | 2009-10-08 00:00:00 |
+|  4 | chaitali | 2060.00 | 2008-05-20 00:00:00 |
+|  5 | hardik   |    NULL | NULL                |
+|  6 | komal    |    NULL | NULL                |
+|  7 | muffy    |    NULL | NULL                |
++----+----------+---------+---------------------+
+8 rows in set (0.00 sec)
+
+mysql> select customer.id , customer.name, orders.amount
+    -> from customer
+    -> left join orders
+    -> on customer.id = orderds.id;
+ERROR 1054 (42S22): Unknown column 'orderds.id' in 'on clause'
+mysql> select customer.id , customer.name, orders.amount
+    -> from customer
+    -> left join orders
+    -> on customer.id = orders.id;
++----+----------+---------+
+| id | name     | amount  |
++----+----------+---------+
+|  1 | ramesh   |    NULL |
+|  2 | khilan   | 1560.00 |
+|  3 | kaushik  | 3000.00 |
+|  3 | kaushik  | 1500.00 |
+|  4 | chaitali | 2060.00 |
+|  5 | hardik   |    NULL |
+|  6 | komal    |    NULL |
+|  7 | muffy    |    NULL |
++----+----------+---------+
+8 rows in set (0.00 sec)
+
+mysql> select customer.id, customer.name, orders.amount, orders.date
+    -> from customer
+    -> right join orders
+    -> on customer.id = orders.id;
++------+----------+---------+---------------------+
+| id   | name     | amount  | date                |
++------+----------+---------+---------------------+
+|    3 | kaushik  | 1500.00 | 2009-10-08 00:00:00 |
+|    2 | khilan   | 1560.00 | 2009-11-20 00:00:00 |
+|    3 | kaushik  | 3000.00 | 2009-10-08 00:00:00 |
+|    4 | chaitali | 2060.00 | 2008-05-20 00:00:00 |
++------+----------+---------+---------------------+
+4 rows in set (0.00 sec)
+
+mysql> select id, name, amount date
+    -> from customer
+    -> left join orders
+    -> on customer.id = orders.id
+    -> union all
+    -> select id, name, amount, date
+    -> from customer
+    -> right join orders
+    -> on customer.id = orders.id;
+ERROR 1052 (23000): Column 'id' in field list is ambiguous
+mysql> select customer.id, customer.name, orders.amount, orders.date
+    -> from customer
+    -> left join orders
+    -> on customer.id = orders.id
+    -> union all
+    -> select customer.id, customer.name, orders.amounut, orders.date
+    -> from customer
+    -> right join orders
+    -> on customer.id = orders.id;
+ERROR 1054 (42S22): Unknown column 'orders.amounut' in 'field list'
+mysql> select customer.id, customer.name, orders.amounut, orders.date
+    -> from customer
+    -> left join orde;rs
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 3
+    -> left join orde;rs^C
+mysql> select customer.id, customer.name, orders.amount, orders.date
+    -> from customer
+    -> left join orders
+    -> on customer.id = orders.id
+    -> union all
+    -> select customer.id, customer.name, orders.amount, orders.date
+    -> from customer
+    -> right join orders
+    -> on customer.id = orders.id;
++------+----------+---------+---------------------+
+| id   | name     | amount  | date                |
++------+----------+---------+---------------------+
+|    1 | ramesh   |    NULL | NULL                |
+|    2 | khilan   | 1560.00 | 2009-11-20 00:00:00 |
+|    3 | kaushik  | 3000.00 | 2009-10-08 00:00:00 |
+|    3 | kaushik  | 1500.00 | 2009-10-08 00:00:00 |
+|    4 | chaitali | 2060.00 | 2008-05-20 00:00:00 |
+|    5 | hardik   |    NULL | NULL                |
+|    6 | komal    |    NULL | NULL                |
+|    7 | muffy    |    NULL | NULL                |
+|    3 | kaushik  | 1500.00 | 2009-10-08 00:00:00 |
+|    2 | khilan   | 1560.00 | 2009-11-20 00:00:00 |
+|    3 | kaushik  | 3000.00 | 2009-10-08 00:00:00 |
+|    4 | chaitali | 2060.00 | 2008-05-20 00:00:00 |
++------+----------+---------+---------------------+
+12 rows in set (0.00 sec)
+
+mysql> select a.id, b.name, a.salary
+    -> from customer a, customer b
+    -> where a.salary < b.salary;
++----+----------+---------+
+| id | name     | salary  |
++----+----------+---------+
+|  2 | ramesh   | 1500.00 |
+|  2 | kaushik  | 1500.00 |
+|  6 | chaitali | 4500.00 |
+|  3 | chaitali | 2000.00 |
+|  2 | chaitali | 1500.00 |
+|  1 | chaitali | 2000.00 |
+|  6 | hardik   | 4500.00 |
+|  4 | hardik   | 6500.00 |
+|  3 | hardik   | 2000.00 |
+|  2 | hardik   | 1500.00 |
+|  1 | hardik   | 2000.00 |
+|  3 | komal    | 2000.00 |
+|  2 | komal    | 1500.00 |
+|  1 | komal    | 2000.00 |
+|  6 | muffy    | 4500.00 |
+|  5 | muffy    | 8500.00 |
+|  4 | muffy    | 6500.00 |
+|  3 | muffy    | 2000.00 |
+|  2 | muffy    | 1500.00 |
+|  1 | muffy    | 2000.00 |
++----+----------+---------+
+20 rows in set (0.00 sec)
+
+mysql> select a.id, b.name, a.salary
+    -> from customer
+    -> ;
+ERROR 1054 (42S22): Unknown column 'a.id' in 'field list'
+mysql> select a.id, b.name, a.salary
+    -> from customer a, customer b
+    -> where a.salary > b.salary;
++----+----------+----------+
+| id | name     | salary   |
++----+----------+----------+
+|  7 | ramesh   | 10000.00 |
+|  6 | ramesh   |  4500.00 |
+|  5 | ramesh   |  8500.00 |
+|  4 | ramesh   |  6500.00 |
+|  7 | khilan   | 10000.00 |
+|  6 | khilan   |  4500.00 |
+|  5 | khilan   |  8500.00 |
+|  4 | khilan   |  6500.00 |
+|  3 | khilan   |  2000.00 |
+|  1 | khilan   |  2000.00 |
+|  7 | kaushik  | 10000.00 |
+|  6 | kaushik  |  4500.00 |
+|  5 | kaushik  |  8500.00 |
+|  4 | kaushik  |  6500.00 |
+|  7 | chaitali | 10000.00 |
+|  5 | chaitali |  8500.00 |
+|  7 | hardik   | 10000.00 |
+|  7 | komal    | 10000.00 |
+|  5 | komal    |  8500.00 |
+|  4 | komal    |  6500.00 |
++----+----------+----------+
+20 rows in set (0.00 sec)
+
+mysql> select a.id , b.name, a.salary
+    -> from customer a, customer b
+    -> where a.salary > b.salary;
++----+----------+----------+
+| id | name     | salary   |
++----+----------+----------+
+|  7 | ramesh   | 10000.00 |
+|  6 | ramesh   |  4500.00 |
+|  5 | ramesh   |  8500.00 |
+|  4 | ramesh   |  6500.00 |
+|  7 | khilan   | 10000.00 |
+|  6 | khilan   |  4500.00 |
+|  5 | khilan   |  8500.00 |
+|  4 | khilan   |  6500.00 |
+|  3 | khilan   |  2000.00 |
+|  1 | khilan   |  2000.00 |
+|  7 | kaushik  | 10000.00 |
+|  6 | kaushik  |  4500.00 |
+|  5 | kaushik  |  8500.00 |
+|  4 | kaushik  |  6500.00 |
+|  7 | chaitali | 10000.00 |
+|  5 | chaitali |  8500.00 |
+|  7 | hardik   | 10000.00 |
+|  7 | komal    | 10000.00 |
+|  5 | komal    |  8500.00 |
+|  4 | komal    |  6500.00 |
++----+----------+----------+
+20 rows in set (0.00 sec)
+
+mysql> select id, name, amount date
+    -> from customer, orders
+    -> ;
+ERROR 1052 (23000): Column 'id' in field list is ambiguous
+mysql> select customer.id, customer.name, orders.amount, orders.date
+    -> from customer, orders;
++----+----------+---------+---------------------+
+| id | name     | amount  | date                |
++----+----------+---------+---------------------+
+|  1 | ramesh   | 2060.00 | 2008-05-20 00:00:00 |
+|  1 | ramesh   | 3000.00 | 2009-10-08 00:00:00 |
+|  1 | ramesh   | 1560.00 | 2009-11-20 00:00:00 |
+|  1 | ramesh   | 1500.00 | 2009-10-08 00:00:00 |
+|  2 | khilan   | 2060.00 | 2008-05-20 00:00:00 |
+|  2 | khilan   | 3000.00 | 2009-10-08 00:00:00 |
+|  2 | khilan   | 1560.00 | 2009-11-20 00:00:00 |
+|  2 | khilan   | 1500.00 | 2009-10-08 00:00:00 |
+|  3 | kaushik  | 2060.00 | 2008-05-20 00:00:00 |
+|  3 | kaushik  | 3000.00 | 2009-10-08 00:00:00 |
+|  3 | kaushik  | 1560.00 | 2009-11-20 00:00:00 |
+|  3 | kaushik  | 1500.00 | 2009-10-08 00:00:00 |
+|  4 | chaitali | 2060.00 | 2008-05-20 00:00:00 |
+|  4 | chaitali | 3000.00 | 2009-10-08 00:00:00 |
+|  4 | chaitali | 1560.00 | 2009-11-20 00:00:00 |
+|  4 | chaitali | 1500.00 | 2009-10-08 00:00:00 |
+|  5 | hardik   | 2060.00 | 2008-05-20 00:00:00 |
+|  5 | hardik   | 3000.00 | 2009-10-08 00:00:00 |
+|  5 | hardik   | 1560.00 | 2009-11-20 00:00:00 |
+|  5 | hardik   | 1500.00 | 2009-10-08 00:00:00 |
+|  6 | komal    | 2060.00 | 2008-05-20 00:00:00 |
+|  6 | komal    | 3000.00 | 2009-10-08 00:00:00 |
+|  6 | komal    | 1560.00 | 2009-11-20 00:00:00 |
+|  6 | komal    | 1500.00 | 2009-10-08 00:00:00 |
+|  7 | muffy    | 2060.00 | 2008-05-20 00:00:00 |
+|  7 | muffy    | 3000.00 | 2009-10-08 00:00:00 |
+|  7 | muffy    | 1560.00 | 2009-11-20 00:00:00 |
+|  7 | muffy    | 1500.00 | 2009-10-08 00:00:00 |
++----+----------+---------+---------------------+
+28 rows in set (0.00 sec)
+
+mysql> select customer.id, customer.name, orders.amount, orders.date
+    -> from customer, orders;
++----+----------+---------+---------------------+
+| id | name     | amount  | date                |
++----+----------+---------+---------------------+
+|  1 | ramesh   | 2060.00 | 2008-05-20 00:00:00 |
+|  1 | ramesh   | 3000.00 | 2009-10-08 00:00:00 |
+|  1 | ramesh   | 1560.00 | 2009-11-20 00:00:00 |
+|  1 | ramesh   | 1500.00 | 2009-10-08 00:00:00 |
+|  2 | khilan   | 2060.00 | 2008-05-20 00:00:00 |
+|  2 | khilan   | 3000.00 | 2009-10-08 00:00:00 |
+|  2 | khilan   | 1560.00 | 2009-11-20 00:00:00 |
+|  2 | khilan   | 1500.00 | 2009-10-08 00:00:00 |
+|  3 | kaushik  | 2060.00 | 2008-05-20 00:00:00 |
+|  3 | kaushik  | 3000.00 | 2009-10-08 00:00:00 |
+|  3 | kaushik  | 1560.00 | 2009-11-20 00:00:00 |
+|  3 | kaushik  | 1500.00 | 2009-10-08 00:00:00 |
+|  4 | chaitali | 2060.00 | 2008-05-20 00:00:00 |
+|  4 | chaitali | 3000.00 | 2009-10-08 00:00:00 |
+|  4 | chaitali | 1560.00 | 2009-11-20 00:00:00 |
+|  4 | chaitali | 1500.00 | 2009-10-08 00:00:00 |
+|  5 | hardik   | 2060.00 | 2008-05-20 00:00:00 |
+|  5 | hardik   | 3000.00 | 2009-10-08 00:00:00 |
+|  5 | hardik   | 1560.00 | 2009-11-20 00:00:00 |
+|  5 | hardik   | 1500.00 | 2009-10-08 00:00:00 |
+|  6 | komal    | 2060.00 | 2008-05-20 00:00:00 |
+|  6 | komal    | 3000.00 | 2009-10-08 00:00:00 |
+|  6 | komal    | 1560.00 | 2009-11-20 00:00:00 |
+|  6 | komal    | 1500.00 | 2009-10-08 00:00:00 |
+|  7 | muffy    | 2060.00 | 2008-05-20 00:00:00 |
+|  7 | muffy    | 3000.00 | 2009-10-08 00:00:00 |
+|  7 | muffy    | 1560.00 | 2009-11-20 00:00:00 |
+|  7 | muffy    | 1500.00 | 2009-10-08 00:00:00 |
++----+----------+---------+---------------------+
+28 rows in set (0.00 sec)
+
+mysql>
