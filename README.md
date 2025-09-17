@@ -1,1 +1,1 @@
-shfksafhskafhaskl fhasklfhfhaskafhaskfhaskfhaskfhaskfhaskf as a fas f lashfklas h fasfhaklfhasklfaslhfkas h
+fullstack datascience with gen ai and agentic ai
