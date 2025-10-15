@@ -68,3 +68,6 @@ bias
 
 variance = regressor.score(X_test, y_test)
 variance
+
+
+
